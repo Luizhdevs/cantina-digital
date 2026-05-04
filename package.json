@@ -1,0 +1,12 @@
+{
+  "name": "cantina-digital-seed",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seed": "node seed-products.js"
+  },
+  "dependencies": {
+    "firebase": "^12.0.0"
+  }
+}

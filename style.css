@@ -1,0 +1,663 @@
+/* ============================================================
+   CANTINA DIGITAL — style.css (Versão 3.0 — Redesign visual completo)
+   Disciplina: Gerenciamento e Qualidade de Software
+   ============================================================ */
+
+/* ── Variáveis de design ──────────────────────────────────────────────────── */
+:root {
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-glow: rgba(37, 99, 235, 0.35);
+  --radius-card: 1rem;
+  --shadow-card: 0 4px 20px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 12px 32px rgba(15, 23, 42, 0.14);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body { -webkit-font-smoothing: antialiased; }
+
+/* ── Utilitários ──────────────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ── Telas / Navegação ────────────────────────────────────────────────────── */
+.screen { display: none; }
+
+.screen.active {
+  display: block;
+  animation: screenFadeIn 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes screenFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Navbar — botão ativo com glow azul ──────────────────────────────────── */
+.nav-btn {
+  position: relative;
+}
+
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 70%;
+  height: 2px;
+  background: #60a5fa;
+  border-radius: 2px;
+  transition: transform 0.2s ease;
+}
+
+.nav-btn.active {
+  color: #fff;
+  background: rgba(37, 99, 235, 0.25);
+  box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.nav-btn.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ── Botão primário (azul gradiente) ──────────────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active { transform: scale(0.98); }
+
+/* ── Botão finalizar (gradiente intenso + glow) ───────────────────────────── */
+.btn-finish {
+  background: linear-gradient(135deg, #3b82f6, #7c3aed);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+  transition: var(--transition);
+}
+
+.btn-finish:hover {
+  background: linear-gradient(135deg, #2563eb, #6d28d9);
+  box-shadow: 0 6px 24px rgba(124, 58, 237, 0.5);
+  transform: translateY(-1px);
+}
+
+/* ── Inputs com ícone ─────────────────────────────────────────────────────── */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.input-icon svg { width: 18px; height: 18px; }
+
+.input-field {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 0.875rem;
+  color: #0f172a;
+  outline: none;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.input-field::placeholder { color: #94a3b8; }
+
+.input-field:focus {
+  border-color: #3b82f6;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ── Input genérico (sem ícone) ───────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  font-size: 0.8125rem;
+  color: #0f172a;
+  outline: none;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.form-input::placeholder { color: #94a3b8; }
+
+.form-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+textarea.form-input { resize: vertical; }
+
+/* ── Painel de autenticação ───────────────────────────────────────────────── */
+.auth-card { border: 1px solid #e2e8f0; }
+
+.auth-feature-item {
+  animation: authFeatureIn 0.5s ease both;
+}
+
+.auth-feature-item:nth-child(1) { animation-delay: 0.1s; }
+.auth-feature-item:nth-child(2) { animation-delay: 0.2s; }
+.auth-feature-item:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes authFeatureIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Cards de produto (gerados pelo JS) ───────────────────────────────────── */
+.product-card {
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: #fff;
+  border: 1px solid #f1f5f9;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  cursor: default;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: #e2e8f0;
+}
+
+.product-card-img-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 180px;
+}
+
+.product-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-card-img-wrap img {
+  transform: scale(1.06);
+}
+
+.product-card-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,23,42,0.55) 0%, transparent 55%);
+}
+
+.product-card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #475569;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.product-card-price {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  box-shadow: 0 2px 10px rgba(37,99,235,0.4);
+}
+
+.product-card-body {
+  padding: 14px;
+}
+
+.product-card-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f172a;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.product-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.product-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.product-status.available {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.product-status.unavailable {
+  background: #fff1f2;
+  color: #be123c;
+}
+
+.product-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.product-status.available .product-status-dot { background: #22c55e; }
+.product-status.unavailable .product-status-dot { background: #f43f5e; }
+
+.product-popularity {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.product-add-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.3);
+  transition: var(--transition);
+  letter-spacing: 0.01em;
+}
+
+.product-add-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 5px 16px rgba(37, 99, 235, 0.45);
+  transform: translateY(-1px);
+}
+
+.product-add-btn:active:not(:disabled) { transform: scale(0.97); }
+
+.product-add-btn:disabled {
+  background: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ── Itens do carrinho ────────────────────────────────────────────────────── */
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 10px 12px;
+  transition: var(--transition);
+}
+
+.cart-item:hover { background: #f1f5f9; border-color: #cbd5e1; }
+
+.cart-item-info { flex: 1; min-width: 0; }
+
+.cart-item-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.cart-item-price {
+  font-size: 0.75rem;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.qty-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.qty-btn:hover { background: #eff6ff; border-color: #93c5fd; color: #2563eb; }
+
+.qty-display {
+  min-width: 22px;
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: #fff0f0;
+  border: none;
+  cursor: pointer;
+  color: #ef4444;
+  font-size: 0.8rem;
+  transition: var(--transition);
+}
+
+.remove-btn:hover { background: #fee2e2; color: #dc2626; }
+
+/* ── Itens de pedido ──────────────────────────────────────────────────────── */
+.order-item {
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.05);
+  transition: var(--transition);
+}
+
+.order-item:hover {
+  box-shadow: 0 6px 20px rgba(15,23,42,0.08);
+  border-color: #cbd5e1;
+}
+
+.order-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* ── Status badge com ponto animado ───────────────────────────────────────── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.status-badge .status-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+.status-recebido   { background: #fefce8; color: #a16207; }
+.status-recebido .status-dot  { background: #eab308; animation: pulseDot 1.5s infinite; }
+
+.status-preparo    { background: #eff6ff; color: #1d4ed8; }
+.status-preparo .status-dot   { background: #3b82f6; animation: pulseDot 1.5s infinite; }
+
+.status-entrega    { background: #f5f3ff; color: #6d28d9; }
+.status-entrega .status-dot   { background: #8b5cf6; }
+
+.status-entregue   { background: #f0fdf4; color: #15803d; }
+.status-entregue .status-dot  { background: #22c55e; }
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* ── Botões de pedido ─────────────────────────────────────────────────────── */
+.repeat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 9px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.repeat-btn:hover { background: #eff6ff; border-color: #93c5fd; color: #2563eb; }
+
+/* ── Cards admin (produtos) ───────────────────────────────────────────────── */
+.admin-product-card {
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 10px rgba(15,23,42,0.06);
+  transition: var(--transition);
+}
+
+.admin-product-card:hover { box-shadow: 0 8px 24px rgba(15,23,42,0.1); }
+
+.admin-product-card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+}
+
+.admin-product-card-body {
+  padding: 12px;
+}
+
+.admin-product-card-body h4 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px;
+}
+
+.admin-product-card-body p {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin: 0 0 10px;
+}
+
+.tag {
+  display: inline-block;
+  margin-bottom: 8px;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.tag.off { background: #fff1f2; color: #9f1239; }
+
+.admin-card-actions { display: flex; gap: 6px; }
+
+.edit-prod {
+  flex: 1;
+  padding: 7px;
+  border-radius: 9px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #92400e;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+.edit-prod:hover { background: #fef3c7; }
+
+.del-prod {
+  flex: 1;
+  padding: 7px;
+  border-radius: 9px;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9f1239;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+.del-prod:hover { background: #fee2e2; }
+
+/* ── Status select no admin ───────────────────────────────────────────────── */
+.status-select {
+  border-radius: 9px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.status-select:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
+
+/* ── Payment cards selecionáveis ──────────────────────────────────────────── */
+.payment-card {
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.payment-card:hover { transform: translateY(-2px); }
+
+.payment-card.active-payment {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+}
+
+.payment-card[data-method="dinheiro"].active-payment { border-color: #10b981; background: #ecfdf5; }
+.payment-card[data-method="cartao"].active-payment   { border-color: #3b82f6; background: #eff6ff; }
+.payment-card[data-method="pix"].active-payment      { border-color: #8b5cf6; background: #f5f3ff; }
+
+/* ── Paginação ────────────────────────────────────────────────────────────── */
+.pagination-btn {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  color: #475569;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+
+.pagination-btn:disabled { cursor: not-allowed; }
+
+/* ── Toast animado ────────────────────────────────────────────────────────── */
+.toast {
+  animation: toastSlideIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Scrollbar customizada ────────────────────────────────────────────────── */
+.cart-list::-webkit-scrollbar,
+.orders-list::-webkit-scrollbar {
+  width: 4px;
+}
+.cart-list::-webkit-scrollbar-track,
+.orders-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cart-list::-webkit-scrollbar-thumb,
+.orders-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* ── Stat cards ───────────────────────────────────────────────────────────── */
+.stat-card {
+  transition: var(--transition);
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -4px;
+}
+
+/* ── Foco acessível ───────────────────────────────────────────────────────── */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ── Auth section centralizada ────────────────────────────────────────────── */
+#authSection {
+  min-height: 82vh;
+}

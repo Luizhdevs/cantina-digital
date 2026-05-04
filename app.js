@@ -1342,6 +1342,16 @@ const adminModule = {
         await this.toggleAdmin(btn.dataset.email, btn.dataset.admin === "true");
       }
     });
+
+    // Adicionar admin diretamente por email
+    document.getElementById("addAdminForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("addAdminEmail").value.trim().toLowerCase();
+      if (!email) return;
+      if (!email.includes("@")) { ui.toast("Email inválido.", "error"); return; }
+      await this.toggleAdmin(email, false);
+      document.getElementById("addAdminEmail").value = "";
+    });
   }
 };
 

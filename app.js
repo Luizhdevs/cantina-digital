@@ -338,6 +338,7 @@ const productModule = {
    * insere um conjunto de produtos iniciais (seed data).
    */
   async seedIfEmpty() {
+    if (!state.isAdmin) return;
     const snap = await getDocs(collection(db, "products"));
     if (snap.empty) {
       const base = [
@@ -370,14 +371,19 @@ const productModule = {
   /** Carrega os produtos do Firestore e renderiza o cardápio */
   async load() {
     ui.loading(true);
-    await this.seedIfEmpty();
-    const snap = await getDocs(collection(db, "products"));
-    state.products = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    state.filteredProducts = [...state.products];
-    state.currentPage = 1;
-    this.render(state.filteredProducts);
-    this.fillCategories();
-    ui.loading(false);
+    try {
+      await this.seedIfEmpty();
+      const snap = await getDocs(collection(db, "products"));
+      state.products = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      state.filteredProducts = [...state.products];
+      state.currentPage = 1;
+      this.render(state.filteredProducts);
+      this.fillCategories();
+    } catch {
+      this.render([]);
+    } finally {
+      ui.loading(false);
+    }
   },
 
   /** Calcula o número de colunas do grid conforme a largura da tela */

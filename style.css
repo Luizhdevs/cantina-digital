@@ -661,3 +661,53 @@ textarea:focus-visible {
 #authSection {
   min-height: 82vh;
 }
+
+/* ── Mobile: carrinho flutuante (FAB) ─────────────────────────────────────── */
+.cart-fab {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: inherit;
+  box-shadow: 0 8px 28px rgba(37, 99, 235, 0.5);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cart-fab:active { transform: translateX(-50%) scale(0.96); }
+
+.cart-fab-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #fff;
+  color: #2563eb;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+/* No desktop (xl+) o sidebar sempre aparece — FAB desnecessário */
+@media (min-width: 1280px) {
+  .cart-fab { display: none !important; }
+}
+
+/* ── Mobile: espaçamento inferior para não sobrepor FAB ───────────────────── */
+@media (max-width: 1279px) {
+  main { padding-bottom: 80px; }
+}

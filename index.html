@@ -34,47 +34,48 @@
          NAVBAR — glassmorphism escuro com glow no item ativo
     ══════════════════════════════════════════════════════════════ -->
     <header id="topbar" class="sticky top-0 z-30 border-b border-white/10 bg-slate-950/90 shadow-[0_4px_24px_rgba(0,0,0,0.4)] backdrop-blur-xl">
-      <div class="mx-auto flex w-full max-w-screen-2xl items-center justify-between gap-4 px-5 py-3">
+      <div class="mx-auto flex w-full max-w-screen-2xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-5 sm:py-3">
 
         <!-- Logo -->
-        <div class="flex shrink-0 items-center gap-3">
-          <img src="assets/logo_navbar.png" alt="Cantina Digital" class="h-10 w-auto max-w-[150px] object-contain drop-shadow" />
+        <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+          <img src="assets/logo_navbar.png" alt="Cantina Digital" class="h-8 w-auto max-w-[100px] object-contain drop-shadow sm:h-10 sm:max-w-[150px]" />
         </div>
 
         <!-- Navegação -->
-        <nav class="flex items-center gap-1" aria-label="Navegação principal">
-          <button data-screen="menu"   class="nav-btn active group relative overflow-hidden rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition-all hover:text-white">
-            <span class="relative z-10 flex items-center gap-2">
-              <!-- ícone cardápio -->
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-              Cardápio
+        <nav class="flex items-center gap-0.5 sm:gap-1" aria-label="Navegação principal">
+          <button data-screen="menu" class="nav-btn active group relative overflow-hidden rounded-xl px-2.5 py-2 text-sm font-semibold text-slate-300 transition-all hover:text-white sm:px-4">
+            <span class="relative z-10 flex items-center gap-1.5 sm:gap-2">
+              <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <span class="hidden sm:inline">Cardápio</span>
             </span>
           </button>
-          <button data-screen="orders" class="nav-btn group relative overflow-hidden rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition-all hover:text-white">
-            <span class="relative z-10 flex items-center gap-2">
-              <!-- ícone pedidos -->
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-              Pedidos
+          <button data-screen="orders" class="nav-btn group relative overflow-hidden rounded-xl px-2.5 py-2 text-sm font-semibold text-slate-300 transition-all hover:text-white sm:px-4">
+            <span class="relative z-10 flex items-center gap-1.5 sm:gap-2">
+              <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              <span class="hidden sm:inline">Pedidos</span>
             </span>
           </button>
-          <button id="navAdminBtn" data-screen="admin" class="nav-btn hidden group relative overflow-hidden rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition-all hover:text-white">
-            <span class="relative z-10 flex items-center gap-2">
-              <!-- ícone admin -->
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-              Admin
+          <button id="navAdminBtn" data-screen="admin" class="nav-btn hidden group relative overflow-hidden rounded-xl px-2.5 py-2 text-sm font-semibold text-slate-300 transition-all hover:text-white sm:px-4">
+            <span class="relative z-10 flex items-center gap-1.5 sm:gap-2">
+              <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              <span class="hidden sm:inline">Admin</span>
             </span>
           </button>
         </nav>
 
         <!-- Perfil + login/logout -->
-        <div class="flex shrink-0 items-center gap-2">
+        <div class="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <!-- Avatar com inicial do nome -->
-          <div class="flex items-center gap-2 rounded-xl bg-slate-800/60 px-3 py-1.5">
+          <div class="flex items-center gap-1.5 rounded-xl bg-slate-800/60 px-2 py-1.5 sm:gap-2 sm:px-3">
             <div class="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-500 text-xs font-bold text-white shadow-inner" id="profileAvatar">V</div>
             <span id="profileName" class="hidden max-w-[120px] truncate text-sm font-medium text-slate-200 sm:block">Visitante</span>
           </div>
-          <button id="btnLogin"  class="btn-primary rounded-xl px-4 py-2 text-sm font-semibold">Entrar</button>
-          <button id="btnLogout" class="hidden rounded-xl border border-slate-600 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-slate-400 hover:text-white">Sair</button>
+          <button id="btnLogin" class="btn-primary rounded-xl px-3 py-2 text-sm font-semibold sm:px-4">Entrar</button>
+          <button id="btnLogout" class="hidden rounded-xl border border-slate-600 px-2 py-2 text-sm font-semibold text-slate-300 transition hover:border-slate-400 hover:text-white sm:px-4">
+            <!-- Ícone no mobile, texto no sm+ -->
+            <svg class="h-4 w-4 sm:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            <span class="hidden sm:inline">Sair</span>
+          </button>
         </div>
 
       </div>
@@ -454,6 +455,13 @@
 
       </section>
     </main>
+
+    <!-- Botão flutuante do carrinho — mobile only, aparece quando há itens no cardápio -->
+    <button id="mobileCartFab" class="cart-fab hidden" aria-label="Ver carrinho">
+      <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+      <span>Carrinho</span>
+      <span id="cartFabBadge" class="cart-fab-badge">0</span>
+    </button>
 
     <!-- Loading overlay com spinner animado -->
     <div id="loading" class="loading hidden fixed inset-0 z-50 grid place-items-center bg-slate-950/70 backdrop-blur-sm" role="status" aria-label="Carregando">

@@ -685,6 +685,7 @@ const cartModule = {
           <p class="mt-0.5 text-xs text-slate-400">Adicione itens do cardápio</p>
         </div>`;
       if (cartTotalEl) cartTotalEl.textContent = ui.money(0);
+      document.getElementById("mobileCartFab")?.classList.add("hidden");
       return;
     }
 
@@ -708,6 +709,16 @@ const cartModule = {
 
     // BUG #6: agora SEMPRE atualiza o total (era condicional com Math.random)
     if (cartTotalEl) cartTotalEl.textContent = ui.money(this.getTotal());
+
+    // Atualiza o botão flutuante do carrinho (mobile)
+    const fab = document.getElementById("mobileCartFab");
+    if (fab) {
+      const totalQty = state.cart.reduce((s, i) => s + (i.qty || 0), 0);
+      const badge = document.getElementById("cartFabBadge");
+      if (badge) badge.textContent = totalQty;
+      if (totalQty > 0) fab.classList.remove("hidden");
+      else fab.classList.add("hidden");
+    }
   },
 
   /** Registra os listeners do carrinho (remoção, alteração de quantidade, limpar) */
@@ -731,6 +742,19 @@ const cartModule = {
         btn.classList.add("active-payment");
       });
     });
+
+    // Botão flutuante do carrinho (mobile): rola até o carrinho no cardápio
+    const fab = document.getElementById("mobileCartFab");
+    if (fab) {
+      fab.addEventListener("click", () => {
+        if (!document.querySelector("#menuScreen.active")) {
+          screenModule.navigateTo("menu");
+        }
+        setTimeout(() => {
+          document.querySelector(".cart-sidebar")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
+      });
+    }
   }
 };
 

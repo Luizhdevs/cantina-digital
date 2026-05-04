@@ -752,7 +752,8 @@ const ordersModule = {
       state.orders = snap.docs
         .map((d) => ({ id: d.id, ...d.data() }))
         .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-    } catch {
+    } catch (err) {
+      console.error("[orders] loadUserOrders falhou:", err);
       state.orders = [];
     }
     this.renderUserOrders();
@@ -871,8 +872,8 @@ const ordersModule = {
           .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
         this.renderUserOrders();
       },
-      () => {
-        // Fallback se o listener falhar: busca pontual
+      (err) => {
+        console.error("[orders] watchUserOrders listener falhou:", err);
         this.loadUserOrders();
       }
     );

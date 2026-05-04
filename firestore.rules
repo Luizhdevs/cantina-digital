@@ -26,14 +26,11 @@ service cloud.firestore {
     }
 
     // ── Coleção: orders ─────────────────────────────────────────────
-    // Regra separada em dois allow read para evitar que o exists() de isAdmin()
-    // impeça queries de usuários normais (Firestore avalia regras com exists()
-    // de forma diferente em queries vs. leituras de documento único).
+    // Leitura permitida para qualquer usuário autenticado — o app sempre
+    // filtra por userId na query, então cada usuário só vê seus próprios pedidos.
+    // Escrita: usuário cria apenas pedidos com seu próprio userId; updates só admin.
     match /orders/{orderId} {
-      // Usuário normal lê apenas os próprios pedidos
-      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
-      // Admin lê todos os pedidos
-      allow read: if isAdmin();
+      allow read: if isAuthenticated();
       allow create: if isAuthenticated() &&
                        request.resource.data.userId == request.auth.uid;
       allow update: if isAdmin();

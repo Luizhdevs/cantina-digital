@@ -746,11 +746,12 @@ const ordersModule = {
     try {
       const q = query(
         collection(db, "orders"),
-        where("userId", "==", state.user.uid),
-        orderBy("createdAt", "desc") // ← melhoria: pedidos em ordem cronológica decrescente
+        where("userId", "==", state.user.uid)
       );
       const snap = await getDocs(q);
-      state.orders = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      state.orders = snap.docs
+        .map((d) => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
     } catch {
       state.orders = [];
     }
@@ -860,14 +861,21 @@ const ordersModule = {
 
     const q = query(
       collection(db, "orders"),
-      where("userId", "==", state.user.uid),
-      orderBy("createdAt", "desc")
+      where("userId", "==", state.user.uid)
     );
-    state.userOrdersUnsub = onSnapshot(q, (snap) => {
-      // BUG #7: o "return" aleatório foi removido — todo update é processado
-      state.orders = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-      this.renderUserOrders();
-    });
+    state.userOrdersUnsub = onSnapshot(
+      q,
+      (snap) => {
+        state.orders = snap.docs
+          .map((d) => ({ id: d.id, ...d.data() }))
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        this.renderUserOrders();
+      },
+      () => {
+        // Fallback se o listener falhar: busca pontual
+        this.loadUserOrders();
+      }
+    );
   },
 
   /** Renderiza a lista de pedidos do usuário */
@@ -1104,10 +1112,10 @@ const adminModule = {
     this.renderProducts();
     this.loadUsers();
     try {
-      const snap = await getDocs(
-        query(collection(db, "orders"), orderBy("createdAt", "desc"))
-      );
-      const orders = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      const snap = await getDocs(collection(db, "orders"));
+      const orders = snap.docs
+        .map((d) => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
       this.renderOrders(orders);
       this.renderStats(orders);
     } catch {
@@ -1130,11 +1138,13 @@ const adminModule = {
       state.adminOrdersUnsub = null;
     }
     state.adminOrdersUnsub = onSnapshot(
-      query(collection(db, "orders"), orderBy("createdAt", "desc")),
+      collection(db, "orders"),
       (snap) => {
-        const orders = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        const orders = snap.docs
+          .map((d) => ({ id: d.id, ...d.data() }))
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
         this.renderOrders(orders);
-        this.renderStats(orders); // BUG #10: sempre atualiza (era condicional com Math.random)
+        this.renderStats(orders);
       },
       () => {
         $("#adminOrders").innerHTML = `

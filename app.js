@@ -834,8 +834,8 @@ const ordersModule = {
       $("#addressInput").value = "";
       $("#noteInput").value = "";
       $("#couponInput").value = "";
-      await this.loadUserOrders();
-      // Redireciona para a tela de pedidos
+      // Navega imediatamente — o watchUserOrders() (listener em tempo real)
+      // já vai atualizar a lista sozinho quando o Firestore confirmar o pedido
       screenModule.navigateTo("orders");
     } catch (err) {
       ui.toast("Erro ao enviar o pedido. Tente novamente.", "error");
